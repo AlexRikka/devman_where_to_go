@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from places.models import Place
+from django.shortcuts import get_object_or_404
+from django.http.response import JsonResponse
 
 
 def index(request):
@@ -24,3 +26,20 @@ def index(request):
     }
     context = {'places': places_geojson}
     return render(request, 'index.html', context)
+
+
+def place(request, place_id):
+    place = get_object_or_404(Place, id=place_id)
+    place_json = {
+        "title": place.title,
+        "imgs": [image.file.url for image in place.images.all()],
+        "description_short": place.short_description,
+        "description_long": place.long_description,
+        "coordinates": {
+            "lng": str(place.lon),
+            "lat": str(place.lat)
+        }
+    }
+    return JsonResponse(place_json,
+                        safe=False,
+                        json_dumps_params={'ensure_ascii': False})
