@@ -4,9 +4,28 @@ from django.shortcuts import get_object_or_404
 from django.http.response import JsonResponse
 
 
+def get_place(request, place_id):
+    place = get_object_or_404(Place, id=place_id)
+    place_json = {
+        "title": place.title,
+        "imgs": [image.file.url for image in place.images.all()],
+        "description_short": place.short_description,
+        "description_long": place.long_description,
+        "coordinates": {
+            "lng": str(place.lon),
+            "lat": str(place.lat)
+        }
+    }
+    return JsonResponse(place_json,
+                        safe=False,
+                        json_dumps_params={'ensure_ascii': False})
+
+
 def index(request):
     places = []
     for place in Place.objects.all():
+        response = get_place(request, place.id)
+        print(response.content)
         places.append({
             "type": "Feature",
             "geometry": {
@@ -26,20 +45,3 @@ def index(request):
     }
     context = {'places': places_geojson}
     return render(request, 'index.html', context)
-
-
-def place(request, place_id):
-    place = get_object_or_404(Place, id=place_id)
-    place_json = {
-        "title": place.title,
-        "imgs": [image.file.url for image in place.images.all()],
-        "description_short": place.short_description,
-        "description_long": place.long_description,
-        "coordinates": {
-            "lng": str(place.lon),
-            "lat": str(place.lat)
-        }
-    }
-    return JsonResponse(place_json,
-                        safe=False,
-                        json_dumps_params={'ensure_ascii': False})
