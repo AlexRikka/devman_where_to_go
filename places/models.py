@@ -25,5 +25,8 @@ class Image(models.Model):
                               related_name='images',
                               verbose_name='Локация')
 
+    class Meta:
+        ordering = ["number"]
+
     def __str__(self):
         return f"{self.number} {self.place.title}"
