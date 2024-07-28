@@ -24,8 +24,6 @@ def get_place(request, place_id):
 def index(request):
     places = []
     for place in Place.objects.all():
-        response = get_place(request, place.id)
-        print(response.content)
         places.append({
             "type": "Feature",
             "geometry": {
@@ -35,7 +33,7 @@ def index(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
-                "detailsUrl": "./static/places/moscow_legends.json"
+                "detailsUrl": f'places/{place.id}'
             }
         })
 
