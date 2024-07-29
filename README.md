@@ -2,7 +2,7 @@
 
 Сайт о самых интересных местах в Москве. Авторский проект Артёма.
 
-[Демка сайта](https://devmanorg.github.io/where-to-go-frontend/).
+[Ссылка на сайт](AlexRikka.pythonanywhere.com).
 
 ## Окружение
 
