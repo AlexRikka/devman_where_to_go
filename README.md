@@ -2,7 +2,7 @@
 
 Сайт о самых интересных местах в Москве. Авторский проект Артёма.
 
-[Ссылка на сайт](AlexRikka.pythonanywhere.com).
+[Ссылка на сайт](https://alexrikka.pythonanywhere.com/)
 
 ## Окружение
 
