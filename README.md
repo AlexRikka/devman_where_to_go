@@ -26,7 +26,12 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-Запустите разработческий сервер:
+Загрузите данные о локациях с помощью команды `load_place`, которая принимает одну ссылку на файл json:
+```
+python manage.py load_place https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/%D0%9A%D0%BE%D0%B2%D0%BE%D1%80%D0%BA%D0%B8%D0%BD%D0%B3%20Gravity.json
+```
+
+Запустите сервер:
 ```
 python manage.py runserver
 ```
