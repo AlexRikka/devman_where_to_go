@@ -7,7 +7,7 @@
 ## Окружение
 
 ### Требования
-Для запуска сайта вам понадобится Python третьей версии. Скачайте репозиторий и установите python пакеты из `requirements.txt`:
+Для запуска сайта вам понадобится Python 3.10. Скачайте репозиторий и установите python пакеты из `requirements.txt`:
 ```bash
 git clone https://github.com/AlexRikka/devman_where_to_go.git
 cd devman_where_to_go
