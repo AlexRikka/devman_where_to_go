@@ -1,10 +1,11 @@
-from django.contrib import admin
-from django.utils.html import format_html
-from django import forms
-from django.db import models
-from places.models import Place, Image
 from adminsortable2.admin import SortableStackedInline, SortableAdminBase
+from django import forms
+from django.contrib import admin
+from django.db import models
+from django.utils.html import format_html
 from tinymce.widgets import TinyMCE
+
+from places.models import Place, Image
 
 
 class ImageInline(SortableStackedInline):
