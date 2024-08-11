@@ -33,7 +33,7 @@ def index(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
-                "detailsUrl": f'places/{place.id}'
+                "detailsUrl": f'places/{place.id}/'
             }
         })
 
