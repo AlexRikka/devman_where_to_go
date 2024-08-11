@@ -4,10 +4,11 @@ from django.db import models
 class Place(models.Model):
     title = models.CharField(max_length=255,
                              verbose_name='Название')
-    short_description = models.CharField(max_length=255,
+    short_description = models.TextField(blank=True,
+                                         default='',
                                          verbose_name='Краткое описание')
-    long_description = models.TextField(null=True,
-                                        blank=True,
+    long_description = models.TextField(blank=True,
+                                        default='',
                                         verbose_name='Полное описание')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
@@ -17,8 +18,12 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    number = models.IntegerField(verbose_name='Номер')
-    file = models.ImageField(verbose_name='Файл',
+    number = models.IntegerField(blank=True,
+                                 default=0,
+                                 verbose_name='Номер')
+    file = models.ImageField(blank=True,
+                             null=True,
+                             verbose_name='Файл',
                              upload_to='media')
     place = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
