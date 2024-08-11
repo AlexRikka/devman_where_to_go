@@ -139,5 +139,5 @@ cython_debug/
 
 media/*
 static/places
-
+staticfiles/
 db.sqlite3
