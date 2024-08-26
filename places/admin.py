@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django.utils.html import format_html
 from tinymce.widgets import TinyMCE
+from tinymce import models as tinymce_models
 
 from places.models import Place, Image
 
@@ -14,7 +15,8 @@ class ImageInline(SortableStackedInline):
     fields = ['file', 'place_image', 'number']
 
     def place_image(self, instance):
-        return format_html(f'<img src="{instance.file.url}" width="300" height=200 />')
+        return format_html("<img src='{}' style='max-width:300px; max-height:200px' />",
+                           instance.file.url)
 
 
 @admin.register(Place)
@@ -24,7 +26,7 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin, forms.ModelForm):
     ]
 
     formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()}
+        tinymce_models.HTMLField: {'widget': TinyMCE()}
     }
 
 

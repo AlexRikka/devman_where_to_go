@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 
 class Place(models.Model):
@@ -7,9 +8,9 @@ class Place(models.Model):
     short_description = models.TextField(blank=True,
                                          default='',
                                          verbose_name='Краткое описание')
-    long_description = models.TextField(blank=True,
-                                        default='',
-                                        verbose_name='Полное описание')
+    long_description = tinymce_models.HTMLField(blank=True,
+                                                default='',
+                                                verbose_name='Полное описание')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
 
