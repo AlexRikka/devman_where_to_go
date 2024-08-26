@@ -30,4 +30,13 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin, forms.ModelForm):
     }
 
 
-admin.site.register(Image)
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    raw_id_fields = ['place']
+    search_fields = ['place__title']
+    list_display = ['place', 'number', 'place_image']
+    list_filter = ['place']
+
+    def place_image(self, instance):
+        return format_html("<img src='{}' style='max-width:300px; max-height:200px' />",
+                           instance.file.url)
