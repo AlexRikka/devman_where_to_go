@@ -7,7 +7,7 @@ from places.models import Place
 
 def get_place(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    place_json = {
+    place_serialized = {
         "title": place.title,
         "imgs": [image.file.url for image in place.images.all()],
         "description_short": place.short_description,
@@ -17,7 +17,7 @@ def get_place(request, place_id):
             "lat": str(place.lat)
         }
     }
-    return JsonResponse(place_json,
+    return JsonResponse(place_serialized,
                         safe=False,
                         json_dumps_params={'ensure_ascii': False})
 

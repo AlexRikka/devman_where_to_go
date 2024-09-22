@@ -15,14 +15,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         response = requests.get(url=options['place_json'][0])
         response.raise_for_status()
-        place = json.loads(response.content)
-        obj, created = Place.objects\
-            .get_or_create(title=place['title'],
-                           short_description=place['description_short'],
-                           long_description=place['description_long'],
-                           lat=place['coordinates']['lat'],
-                           lon=place['coordinates']['lng'])
-        print(obj)
+        place_raw = json.loads(response.content)
+        place, created = Place.objects\
+            .get_or_create(title=place_raw['title'],
+                           short_description=place_raw['description_short'],
+                           long_description=place_raw['description_long'],
+                           lat=place_raw['coordinates']['lat'],
+                           lon=place_raw['coordinates']['lng'])
+
         if created:
             for i, image_url in enumerate(place['imgs'],  start=1):
                 response = requests.get(url=image_url)
@@ -32,9 +32,9 @@ class Command(BaseCommand):
                 with open(image_path, 'wb') as f:
                     f.write(response.content)
                 with open(image_path, 'rb') as f:
-                    obj.images.create(number=i,
-                                      file=File(f),
-                                      place=obj)
+                    place.images.create(number=i,
+                                        file=File(f),
+                                        place=place)
 
             self.stdout.write(self.style.SUCCESS(
-                f'Успешно загружена локация #{obj.id}'))
+                f'Успешно загружена локация #{place.id}'))
