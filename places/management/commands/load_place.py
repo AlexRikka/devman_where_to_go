@@ -24,7 +24,7 @@ class Command(BaseCommand):
                            lon=place_raw['coordinates']['lng'])
 
         if created:
-            for i, image_url in enumerate(place['imgs'],  start=1):
+            for i, image_url in enumerate(place_raw['imgs'],  start=1):
                 response = requests.get(url=image_url)
                 response.raise_for_status()
                 image_path = os.path.join('media', os.path.basename(image_url))
