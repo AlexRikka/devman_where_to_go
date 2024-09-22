@@ -4,6 +4,7 @@ from tinymce import models as tinymce_models
 
 class Place(models.Model):
     title = models.CharField(max_length=255,
+                             unique=True,
                              verbose_name='Название')
     short_description = models.TextField(blank=True,
                                          default='',

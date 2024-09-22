@@ -17,11 +17,7 @@ class Command(BaseCommand):
         response.raise_for_status()
         place_raw = json.loads(response.content)
         place, created = Place.objects\
-            .get_or_create(title=place_raw['title'],
-                           short_description=place_raw['description_short'],
-                           long_description=place_raw['description_long'],
-                           lat=place_raw['coordinates']['lat'],
-                           lon=place_raw['coordinates']['lng'])
+            .get_or_create(title=place_raw['title'],)
 
         if created:
             for i, image_url in enumerate(place_raw['imgs'],  start=1):
@@ -35,6 +31,8 @@ class Command(BaseCommand):
                     place.images.create(number=i,
                                         file=File(f),
                                         place=place)
-
             self.stdout.write(self.style.SUCCESS(
                 f'Успешно загружена локация #{place.id}'))
+        else:
+            self.stdout.write(self.style.SUCCESS(
+                'Такая локация уже есть в базе'))
