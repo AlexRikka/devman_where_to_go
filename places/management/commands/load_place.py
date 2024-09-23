@@ -1,5 +1,5 @@
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from django.core.files import File
 from places.models import Place
 import requests
 import json
@@ -28,13 +28,11 @@ class Command(BaseCommand):
                 response = requests.get(url=image_url)
                 response.raise_for_status()
                 image_path = os.path.join('media', os.path.basename(image_url))
+                place.images.create(number=i,
+                                    file=ContentFile(
+                                        response.content, image_path),
+                                    place=place)
 
-                with open(image_path, 'wb') as f:
-                    f.write(response.content)
-                with open(image_path, 'rb') as f:
-                    place.images.create(number=i,
-                                        file=File(f),
-                                        place=place)
             self.stdout.write(self.style.SUCCESS(
                 f'Успешно загружена локация #{place.id}'))
         else:
