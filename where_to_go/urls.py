@@ -4,11 +4,11 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from places import views
 
-
+app_name = 'places'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('places/<int:place_id>/', views.get_place, name='places'),
+    path('<int:place_id>/', views.get_place, name='places'),
     path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
