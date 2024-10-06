@@ -11,7 +11,8 @@ class ImageInline(SortableStackedInline):
     fields = ['file', 'place_image', 'number']
 
     def place_image(self, instance):
-        return format_html("<img src='{}' style='max-width:300px; max-height:200px' />",
+        return format_html("<img src='{}' \
+                           style='max-width:300px; max-height:200px' />",
                            instance.file.url)
 
 
@@ -30,5 +31,6 @@ class ImageAdmin(admin.ModelAdmin):
     list_filter = ['place']
 
     def place_image(self, instance):
-        return format_html("<img src='{}' style='max-width:300px; max-height:200px' />",
+        return format_html("<img src='{}' \
+                           style='max-width:300px; max-height:200px' />",
                            instance.file.url)
