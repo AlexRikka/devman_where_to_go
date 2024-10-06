@@ -1,11 +1,7 @@
 from adminsortable2.admin import SortableStackedInline, SortableAdminBase
 from django import forms
 from django.contrib import admin
-from django.db import models
 from django.utils.html import format_html
-from tinymce.widgets import TinyMCE
-from tinymce import models as tinymce_models
-
 from places.models import Place, Image
 
 
@@ -24,10 +20,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin, forms.ModelForm):
     inlines = [
         ImageInline,
     ]
-
-    formfield_overrides = {
-        tinymce_models.HTMLField: {'widget': TinyMCE()}
-    }
 
 
 @admin.register(Image)
