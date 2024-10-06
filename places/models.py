@@ -7,10 +7,8 @@ class Place(models.Model):
                              unique=True,
                              verbose_name='Название')
     short_description = models.TextField(blank=True,
-                                         default='',
                                          verbose_name='Краткое описание')
     long_description = tinymce_models.HTMLField(blank=True,
-                                                default='',
                                                 verbose_name='Полное описание')
     lat = models.FloatField(verbose_name='Широта')
     lon = models.FloatField(verbose_name='Долгота')
