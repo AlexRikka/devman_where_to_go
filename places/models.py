@@ -21,8 +21,8 @@ class Image(models.Model):
     number = models.IntegerField(blank=True,
                                  default=0,
                                  verbose_name='Номер')
-    file = models.ImageField(blank=True,
-                             null=True,
+    file = models.ImageField(blank=False,
+                             default='',
                              verbose_name='Файл',
                              upload_to='media')
     place = models.ForeignKey(Place,
