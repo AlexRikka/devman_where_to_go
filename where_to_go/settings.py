@@ -11,7 +11,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,7 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'places.apps.PlacesConfig',
     'adminsortable2',
-    'tinymce'
+    'tinymce',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -33,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'where_to_go.urls'
@@ -103,3 +105,7 @@ STATICFILES_DIRS = [
 TINYMCE_JS_URL = "https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"
 
 TINYMCE_COMPRESSOR = False
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
