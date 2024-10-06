@@ -18,11 +18,10 @@ class Command(BaseCommand):
         place_raw = json.loads(response.content)
         place, created = Place.objects\
             .update_or_create(title=place_raw['title'],
-                              short_description=place_raw['description_short'],
-                              long_description=place_raw['description_long'],
-                              lat=place_raw['coordinates']['lat'],
-                              lon=place_raw['coordinates']['lng'])
-
+                              defaults={'short_description': place_raw['description_short'],
+                                        'long_description': place_raw['description_long'],
+                                        'lat': place_raw['coordinates']['lat'],
+                                        'lon': place_raw['coordinates']['lng']})
         if created:
             for i, image_url in enumerate(place_raw['imgs'],  start=1):
                 response = requests.get(url=image_url)
@@ -32,7 +31,6 @@ class Command(BaseCommand):
                                     file=ContentFile(
                                         response.content, image_path),
                                     place=place)
-
             self.stdout.write(self.style.SUCCESS(
                 f'Успешно загружена локация #{place.id}'))
         else:
