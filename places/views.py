@@ -13,8 +13,8 @@ def get_place(request, place_id):
         'description_short': place.short_description,
         'description_long': place.long_description,
         'coordinates': {
-            'lng': str(place.lon),
-            'lat': str(place.lat)
+            'lng': place.lon,
+            'lat': place.lat
         }
     }
     return JsonResponse(place_serialized,
