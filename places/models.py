@@ -31,7 +31,7 @@ class Image(models.Model):
                               verbose_name='Локация')
 
     class Meta:
-        ordering = ["number"]
+        ordering = ['number']
 
     def __str__(self):
-        return f"{self.number} {self.place.title}"
+        return f'{self.number} {self.place.title}'
