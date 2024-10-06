@@ -23,11 +23,11 @@ class Command(BaseCommand):
                                         'lat': place_raw['coordinates']['lat'],
                                         'lon': place_raw['coordinates']['lng']})
         if created:
-            for i, image_url in enumerate(place_raw['imgs'],  start=1):
+            for number, image_url in enumerate(place_raw['imgs'],  start=1):
                 response = requests.get(url=image_url)
                 response.raise_for_status()
                 image_path = os.path.join('media', os.path.basename(image_url))
-                place.images.create(number=i,
+                place.images.create(number=number,
                                     file=ContentFile(
                                         response.content, image_path),
                                     place=place)
