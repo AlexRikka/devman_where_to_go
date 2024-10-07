@@ -17,15 +17,14 @@ class Command(BaseCommand):
         response.raise_for_status()
         place_raw = json.loads(response.content)
         place, created = Place.objects\
-            .update_or_create(title=place_raw['title'],
-                              defaults={'short_description':
-                                        place_raw['description_short'],
-                                        'long_description':
-                                        place_raw['description_long'],
-                                        'lat':
-                                        place_raw['coordinates']['lat'],
-                                        'lon':
-                                        place_raw['coordinates']['lng']})
+            .update_or_create(
+                title=place_raw['title'],
+                defaults={
+                    'short_description': place_raw['description_short'],
+                    'long_description': place_raw['description_long'],
+                    'lat': place_raw['coordinates']['lat'],
+                    'lon': place_raw['coordinates']['lng']
+                })
         if created:
             for number, image_url in enumerate(place_raw['imgs'],  start=1):
                 response = requests.get(url=image_url)
